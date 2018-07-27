@@ -1,0 +1,15 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% if page_title %}{{ page_title }}{% else %}MedTech{% endif %}</title>
+        <script type="text/javascript" src="{% static "jquery-2.1.4.min.js" %}"></script>
+        <script type="text/javascript" src="{% static 'semantic/semantic.min.js' %}"></script>
+        <link href="{% static 'semantic/semantic.min.css' %}" rel="stylesheet">
+        <link href="{% static 'common.css' %}" rel="stylesheet">
+        {% block head_block %}{% endblock %}
+    </head>
+    <body>{% block body_block %}{% endblock %}</body>
+</html>

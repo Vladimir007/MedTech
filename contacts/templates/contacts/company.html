@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+    <h3>Company: {{ company.name }}</h3>
+    {% if company.address %}<small>Address:</small><p>{{ company.address }}</p>{% endif %}
+    <div class="ui divider"></div>
+    <a href="{% url 'index' %}" class="ui teal tiny button">Back</a>
+{% endblock %}

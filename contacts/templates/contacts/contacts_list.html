@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block head_block %}
+    <script type="text/javascript" src="{% static 'contacts.js' %}"></script>
+{% endblock %}
+
+
+{% block body_block %}
+    <div>
+        <h1 class="ui teal header">Contacts</h1>
+
+        <div class="ui teal basic buttons" style="float: right">
+            <a href="{% url 'contacts:import' %}" class="ui button">Import</a>
+            <a href="{% url 'contacts:export' %}" class="ui button">Export</a>
+            <button id="get_breffi_values" class="ui button">Get breffi values</button>
+        </div>
+        <a href="{% url 'contacts:create' %}" class="ui basic teal button">Create new</a>
+        <a href="{% url 'companies' %}" class="ui basic teal button">Companies</a>
+        <br>
+        <div id="breffi_values_div"></div>
+        <br>
+        {% if contact_list.count %}
+            <table class="ui inverted compact selectable table">
+                <thead><tr>
+                    <th>Name</th>
+                    <th>Company</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Interest</th>
+                    <th>&nbsp;</th>
+                </tr></thead>
+                <tbody>
+                    {% for contact in contact_list %}
+                        <tr>
+                            <td>{{ contact.name }}</td>
+                            <td><a href="{% url 'contacts:company' contact.company_id %}">{{ contact.company }}</a></td>
+                            <td>{{ contact.email }}</td>
+                            <td>{{ contact.phone }}</td>
+                            <td>{{ contact.interest }}</td>
+                            <td>
+                                <div class="ui tiny teal buttons">
+                                    <a href="{% url 'contacts:inspect' contact.id %}" class="ui button details-btn">details</a>
+                                    <a href="{% url 'contacts:edit' contact.id %}" class="ui button edit-btn">edit</a>
+                                    <a href="{% url 'contacts:delete' contact.id %}" class="ui button delete-btn">delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+        <div class="ui divider"></div>
+
+        <form method="GET">
+            <div class="ui form">
+                <div class="inline fields">
+                    <div class="field">
+                        <label class="ui teal header" for="filter_dropdown">Filter by</label>
+                        <select id="filter_dropdown" name="filter-dropdown" class="ui dropdown">
+                            <option value="name"{% if filter_dropdown == 'name' %} selected{% endif %}>Name</option>
+                            <option value="company__name"{% if filter_dropdown == 'company__name' %} selected{% endif %}>Company</option>
+                            <option value="interest"{% if filter_dropdown == 'interest' %} selected{% endif %}>Interest</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <div class="ui action input">
+                            <label for="filter_value"></label>
+                            <input id="filter_value" name="filter-value" style="width: 300px;" value="{{ filter_value }}">
+                            <input type="submit" value="Search" class="ui teal button">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

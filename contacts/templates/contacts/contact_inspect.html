@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+    <h4 class="ui teal header">Contact</h4>
+    <div class="ui divider"></div>
+    <div class="ui bulleted list">
+        <div class="item">ID: {{ object.id }}</div>
+        <div class="item">ExternalID:</div>
+        <div class="item">Name: {{ object.name }}</div>
+        <div class="item">Company: {{ object.company }}</div>
+        <div class="item">Email: {{ object.email }}</div>
+        <div class="item">Phone: {{ object.phone }}</div>
+        <div class="item">Interest: {{ object.interest }}</div>
+    </div>
+    <div class="ui divider"></div>
+    <a href="{% url 'index' %}" class="ui teal tiny button">Cancel</a>
+{% endblock %}

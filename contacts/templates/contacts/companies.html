@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block head_block %}
+
+{% endblock %}
+
+
+{% block body_block %}
+    <div>
+        <h1 class="ui teal header">Companies</h1>
+        <a href="{% url 'index' %}" class="ui basic teal button">Back</a>
+        <br>
+        {% if company_list.count %}
+            <table class="ui inverted compact selectable table">
+                <thead><tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                </tr></thead>
+                <tbody>
+                    {% for company in company_list %}
+                        <tr>
+                            <td>{{ company.name }}</td>
+                            <td>{{ company.address }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

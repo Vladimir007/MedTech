@@ -1,0 +1,12 @@
+{% extends 'contacts/form_base.html' %}
+
+{% block form_block %}
+    <div class="ui form">
+        {% for field in form %}
+            <label>{{ field.label }}</label>
+            {{ field }}
+            <small class="form-error">{{ field.errors }}</small>
+            <br><br>
+        {% endfor %}
+    </div>
+{% endblock %}

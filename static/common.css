@@ -1,0 +1,9 @@
+body {
+    background: #305467;
+    color: #00b5ad;
+    padding: 20px;
+}
+
+.form-error {
+    color: #ff3f41;
+}

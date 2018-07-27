@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+    <h4 class="ui teal header">{{ title }}</h4>
+    <div class="ui divider"></div>
+    <form method="post">
+        {% csrf_token %}
+        {% block form_block %}{% endblock %}
+        <a href="{% url 'index' %}" class="ui teal tiny button">Cancel</a>
+        <input class="ui teal tiny button" type="submit" value="{{ submit_btn }}">
+    </form>
+{% endblock %}

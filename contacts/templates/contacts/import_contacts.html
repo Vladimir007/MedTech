@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block head_block %}
+    <script type="text/javascript" src="{% static 'import_contacts.js' %}"></script>
+    <link href="{% static 'import_contacts.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body_block %}
+    <h4 class="ui teal header">{{ title }}</h4>
+    <div class="ui divider"></div>
+    <form enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <div id="import_contacts_file_div" class="ui grid">
+            <div class="three wide column">
+                <span class="ui orange button btn-file">Browse<input id="import_fileinput" name="file" type="file"></span>
+                {% if form %}
+                    <br>
+                    <span>{{ form.errors }}</span>
+                    <br>
+                {% endif %}
+            </div>
+            <div class="three wide column">
+                <span id="import_filename"></span>
+            </div>
+        </div>
+        <div class="ui divider"></div>
+        <a href="{% url 'index' %}" class="ui teal tiny button">Cancel</a>
+        <input class="ui teal tiny button" type="submit" value="{{ submit_btn }}">
+    </form>
+{% endblock %}
